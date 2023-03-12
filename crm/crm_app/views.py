@@ -2,8 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import RegisterForm
+from .models import Record
 
 def home(request):
+    # Get all records in the table, assign to records variable.
+    # Pass into the home page context if user is already logged in.
+    records = Record.objects.all()
+
     # Check if user logging in, or already logged in
     # If logging in, POST req. If logged in, GET req.
     if request.method == 'POST':
@@ -19,7 +24,7 @@ def home(request):
             messages.error(request, "Wrong Username or Password")
             return redirect('home')
     else:
-        return render(request, 'home.html', {})
+        return render(request, 'home.html', {'records':records})
 
 # def login_user(request):
 #     pass
