@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="col-md-6 offset-md-3">
+  <div class="card border-secondary mb-3">
+    <div class="card-header">
+      <h3 class="card-title">{{ customer_record.first_name }} {{ customer_record.last_name }}</h3>
+    </div>
+    <div class="card-body border-secondary mb-3">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>ID:</strong> {{ customer_record.id }}</li>
+        <li class="list-group-item"><strong>Email:</strong> {{ customer_record.email }}</li>
+        <li class="list-group-item"><strong>Phone No:</strong> {{ customer_record.phone }}</li>
+        <li class="list-group-item"><strong>Address:</strong> {{ customer_record.address }}</li>
+        <li class="list-group-item"><strong>City:</strong> {{ customer_record.city }}</li>
+        <li class="list-group-item"><strong>County:</strong> {{ customer_record.county }}</li>
+        <li class="list-group-item"><strong>Creation Time:</strong> {{ customer_record.created_at }}</li>
+      </ul>
+    </div>
+  </div>
+  <br/>
+  <a href="/" class="btn btn-primary">Back</a>
+
+  <a href="/" class="btn btn-danger">Delete</a>
+</div>
+{% endif %}
+{% endblock %}
