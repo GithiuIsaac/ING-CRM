@@ -83,10 +83,28 @@ def add_record(request):
                 add_record = form.save()
                 messages.success(request, "Customer Record Added Successfully")
                 return redirect('home')
-        else:
-            # If request is not a POST request, then the user intends to fill the form.
-            # Render the form and pass in the form to the page context.
-            return render(request, 'add_record.html', {'form':form})
+        # If request is not a POST request, then the user intends to fill the form.
+        # Render the form and pass in the form to the page context, and return the same page
+        return render(request, 'add_record.html', {'form':form})
+    else:
+        messages.error(request, "You Must Be Logged In")
+        return redirect('home')
+
+def update_record(request, pk):
+    # Check if user is logged in
+    if request.user.is_authenticated:
+        # Look up record, pass record with matching id to variable
+        current_record = Record.objects.get(id=pk)
+        # When the update page is accessed, the form should already be populated.
+        # This is done by using an instance of the above variable, and passing it back into the page.
+        form = AddRecordForm(request.POST or None, instance=current_record)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Customer Record Updated Successfully")
+            return redirect('home')
+        # If request is not a POST request, then the user intends to fill the form.
+        # Render the form and pass in the form to the page context, and return the same page
+        return render(request, 'update_record.html', {'form':form})
     else:
         messages.error(request, "You Must Be Logged In")
         return redirect('home')

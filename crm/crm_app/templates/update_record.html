@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="col-md-6 offset-md-3">
+<form method="POST">
+  {% csrf_token %}
+  <div class="card border-secondary mb-3">
+    <div class="card-header">
+      <h2 class="card-title">Update Customer Record</h2>
+    </div>
+    <div class="card-body border-secondary mb-3">
+      {% if form.errors %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {% for field in form %}
+          {% if field.errors %}
+            {{ field.errors }}
+          {% endif %}
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+
+      {{ form.as_p }}
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Update Record</button>
+
+  <a href="{% url 'record' form.instance.id %}" class="btn btn-secondary">Back</a>
+</form>
+</div>
+{% endif %}
+{% endblock %}
