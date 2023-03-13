@@ -33,13 +33,13 @@ class RegisterForm(UserCreationForm):
 
 # Add New Record
 class AddRecordForm(forms.ModelForm):
-    first_name = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'})) 
-    last_name = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
-    email = forms.EmailField(equired=True, label="", widget=forms.widgets.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
-    phone = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={'class':'form-control', 'placeholder':'Phone'}))
-    address = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={'class':'form-control', 'placeholder':'Address'}))
-    city = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={'class':'form-control', 'placeholder':'City'}))
-    county = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={'class':'form-control', 'placeholder':'County'}))
+    first_name = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={"class":"form-control", "placeholder":"First Name"}))
+    last_name = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={"class":"form-control", "placeholder":"Last Name"}))
+    email = forms.EmailField(required=True, label="", widget=forms.widgets.TextInput(attrs={"class":"form-control", "placeholder":"Email Address"}))
+    phone = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={"class":"form-control", "placeholder":"Phone"}))
+    address = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={"class":"form-control", "placeholder":"Address"}))
+    city = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={"class":"form-control", "placeholder":"City"}))
+    county = forms.CharField(required=True, label="", max_length="100", widget=forms.widgets.TextInput(attrs={"class":"form-control", "placeholder":"County"}))
     
     # Set class & designate the model to be used
     class Meta:

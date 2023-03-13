@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import RegisterForm
+from .forms import RegisterForm, AddRecordForm
 from .models import Record
 
 def home(request):
@@ -75,14 +75,18 @@ def delete_record(request, pk):
         return redirect('home')
 
 def add_record(request):
+    form = AddRecordForm(request.POST or None)
     # Check if user is logged in
     if request.user.is_authenticated:
-        # Look up record, pass record with matching id to variable
-        delete_record = Record.objects.get(id=pk)
-        delete_record.delete()
-        messages.error(request, "Customer Record Deleted Successfully")
-        return redirect('home')
+        if request.method == 'POST':
+            if form.is_valid():
+                add_record = form.save()
+                messages.success(request, "Customer Record Added Successfully")
+                return redirect('home')
+        else:
+            # If request is not a POST request, then the user intends to fill the form.
+            # Render the form and pass in the form to the page context.
+            return render(request, 'add_record.html', {'form':form})
     else:
         messages.error(request, "You Must Be Logged In")
         return redirect('home')
-    return render(request, 'add_record.html', {})

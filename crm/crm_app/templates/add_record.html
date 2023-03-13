@@ -2,47 +2,35 @@
 
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
-<h2>Add Customer Record</h2><br/>
 {% if user.is_authenticated %}
+
+<div class="col-md-6 offset-md-3">
 <form method="POST" action="{% url 'add_record' %}">
   {% csrf_token %}
-  
-  {{ form.as_p }}
+
   <div class="card border-secondary mb-3">
     <div class="card-header">
-      <h3 class="card-title">{{ customer_record.first_name }} {{ customer_record.last_name }}</h3>
+      <h2 class="card-title">Add Customer Record</h2>
     </div>
     <div class="card-body border-secondary mb-3">
+      {% if form.errors %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {% for field in form %}
+          {% if field.errors %}
+            {{ field.errors }}
+          {% endif %}
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+
       {{ form.as_p }}
     </div>
   </div>
-  <br/>
-  <button type="submit" class="btn btn-secondary">Add Record</button>
+  <button type="submit" class="btn btn-primary">Add Record</button>
+
+  <a href="/" class="btn btn-secondary">Back</a>
 </form>
 </div>
-<div class="col-md-6 offset-md-3">
-    <h2>Register</h2>
-    
-    <form method="POST" action="">
-      {% csrf_token %}
-      {% if form.errors %}
-              <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {% for field in form %}
-                    {% if field.errors %}
-                        {{ field.errors }}
-                    {% endif %}
-                {% endfor %}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-          {% endif %}
-  
-      {{ form.as_p }}
-  
-      <br/>
-      <button type="submit" class="btn btn-secondary">Register</button>
-    </form>
-  
-  </div>
 {% endif %}
 {% endblock %}
