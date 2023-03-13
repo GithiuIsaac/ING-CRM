@@ -73,3 +73,16 @@ def delete_record(request, pk):
     else:
         messages.error(request, "You Must Be Logged In")
         return redirect('home')
+
+def add_record(request):
+    # Check if user is logged in
+    if request.user.is_authenticated:
+        # Look up record, pass record with matching id to variable
+        delete_record = Record.objects.get(id=pk)
+        delete_record.delete()
+        messages.error(request, "Customer Record Deleted Successfully")
+        return redirect('home')
+    else:
+        messages.error(request, "You Must Be Logged In")
+        return redirect('home')
+    return render(request, 'add_record.html', {})
